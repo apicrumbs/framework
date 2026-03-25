@@ -1,5 +1,5 @@
 {
-    "name": "apicrumbs/engine",
+    "name": "apicrumbs/framework",
     "description": "High-signal RAG context for PHP AI agents.",
     "type": "library",
     "license": "MIT",
