@@ -1,5 +1,6 @@
 🍪 ApiCrumbs Framework
 
+
 The Wikipedia of Context for the PHP Ecosystem.
 
 ApiCrumbs is a community-driven Data Logistics Layer. It solves the "Dirty Data" problem by refining messy APIs, 500MB+ CSVs, and web scrapes into High-Signal Markdown "Crumbs" designed specifically for LLM context windows.
