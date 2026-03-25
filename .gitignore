@@ -1,0 +1,23 @@
+composer.phar
+foundry-dev
+apicrumbs.log
+manifest.json
+test.php
+/vendor/
+/src/Providers/
+/src/Crumbs/
+/src/Recipes/
+/src/RecipeBooks/
+/src/PrintingPresses/
+/src/Contracts/BasePrintingPress.php
+/src/Contracts/BaseRecipeBook.php
+.env
+.env.example
+.env.test
+test_sic.php
+*.csv
+/dist/
+/data/
+# Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
+# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
+# composer.lock

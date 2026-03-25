@@ -1,0 +1,54 @@
+#!/usr/bin/env php
+<?php
+
+// LIVE ONLY: 
+require __DIR__ . '/../../../../vendor/autoload.php';
+
+use ApiCrumbs\Framework\EnvLoader;
+
+// 🔥 The Spark: Boot the Environment before anything else runs
+EnvLoader::load(dirname(__DIR__) . '/.env');
+
+
+$args = $argv;
+$command = $args[1] ?? 'help';
+
+switch ($command) {
+    case 'make':
+        (new \ApiCrumbs\Framework\Commands\MakeCommand())->handle($args);
+        break;
+    case 'install':
+        (new \ApiCrumbs\Framework\Commands\InstallCommand())->handle($args);
+        break;
+    case 'list':
+        (new \ApiCrumbs\Framework\Commands\ListCommand())->handle($args);
+        break;
+    case 'linter':
+        (new \ApiCrumbs\Framework\Commands\LinterCommand())->handle();
+        break;
+    case 'update':
+        (new \ApiCrumbs\Framework\Commands\UpdateCommand())->handle($argv);
+        break;
+    case 'logs':
+        (new \ApiCrumbs\Framework\Commands\LogsCommand())->handle($args);
+        break;
+    case 'run':
+        (new \ApiCrumbs\Framework\Commands\RunCommand())->handle($args);
+        break;
+    case 'setup:env':
+        (new \ApiCrumbs\Framework\Commands\EnvSetupCommand())->handle();
+        break;
+    default:
+        echo "\e[1;34m🍪 ApiCrumbs Foundry CLI\e[0m\n";
+        echo "Usage: php foundry [command] [options]\n\n";
+        echo "  \e[32mlist\e[0m             List all available 250+ crumbs\n";
+        echo "  \e[32minstall [Path]\e[0m   Download a free crumb\n";
+        echo "  \e[32mlinter\e[0m           Checks crumbs architectural linting\n";
+        echo "  \e[32mupdate\e[0m           Synchronises local crumbs with the remote crumbs\n";
+        echo "  \e[32mlogs\e[0m             Diagnose the issues instantly\n";
+        echo "  \e[32mrun\e[0m              Runs a single crumb and dumps its transform() output\n";
+        echo "  \e[32mmake [Name]\e[0m      Create a custom crumb stub\n";
+        echo "  \e[32msetup:env\e[0m        Generate a boilerplate .env with placeholders for PRO, CH and HMRC keys\n";
+    
+        break;
+}
