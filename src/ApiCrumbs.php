@@ -3,12 +3,12 @@
 namespace ApiCrumbs\Framework;
 
 use ApiCrumbs\Framework\Contracts\CrumbInterface;
-use ApiCrumbs\Framework\Transformers\MarkdownTransformer;
-use ApiCrumbs\Framework\Transformers\MetadataTransformer;
 use ApiCrumbs\Framework\EnvLoader;
+use ApiCrumbs\Framework\ManifestLoader;
 
 // 🔥 The Spark: Boot the Environment before anything else runs
 EnvLoader::load(dirname(__DIR__) . '/.env');
+
 
 class ApiCrumbs
 {
@@ -23,85 +23,13 @@ class ApiCrumbs
 
     public function __construct()
     {
-        $this->manifest['crumbs'] = $this->scanLocalCrumbs();
-        $this->manifest['recipes'] = $this->scanLocalRecipes();
+        $this->manifest['crumbs'] = ManifestLoader::scanLocalCrumbs();
+        $this->manifest['recipes'] = ManifestLoader::scanLocalRecipes();
     }
 
     public function getCrumbs(): array
     {
         return $this->crumbs;
-    }
-
-    private function scanLocalCrumbs(): array
-    {
-        $found = [];
-        $dir = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(getcwd() . '/src/Crumbs'));
-        
-        foreach ($dir as $file) {
-            if (!$file->isFile() || !str_ends_with($file->getFilename(), 'Crumb.php')) continue;
-            //print_r($file);
-            
-            $fileParts = explode('\\', $file->getPathname());
-            $fileCategory = strtolower($fileParts[count($fileParts) - 2]);
-            // Reflect to get version without executing full API logic
-            $content = file_get_contents($file->getPathname());
-
-            $fileName = $file->getPathname();
-            $className = $this->resolveCrumbssNamespace($fileName);
-
-            //echo $className;
-            
-            if (class_exists($className)) {
-                $id = $fileCategory .'/'. strtolower(str_replace('Recipe.php', '', $file->getFilename()));
-                //$id = $this->toSnake(basename($fileName, '.php'));
-                $found[$id] = new $className();
-            }
-           
-        }
-
-        //print_r($found);
-        return $found;
-    }
-
-    private function resolveCrumbssNamespace(string $path): string {
-        $ns = str_replace([getcwd().'/src/', '.php', '/'], ['ApiCrumbs', '', '\\'], $path);
-        return str_replace('ApiCrumbsCrumbs', 'ApiCrumbs\\Crumbs', $ns);
-    }
-
-    private function scanLocalRecipes(): array
-    {
-        $found = [];
-        $dir = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(getcwd() . '/src/Recipes'));
-        
-        foreach ($dir as $file) {
-            if (!$file->isFile() || !str_ends_with($file->getFilename(), 'Recipe.php')) continue;
-           // print_r($file);
-            
-            $fileParts = explode('\\', $file->getPathname());
-            $fileCategory = strtolower($fileParts[count($fileParts) - 2]);
-            // Reflect to get version without executing full API logic
-            $content = file_get_contents($file->getPathname());
-
-            $fileName = $file->getPathname();
-            $className = $this->resolveRecipesNamespace($fileName);
-
-            //echo $className;
-            
-            if (class_exists($className)) {
-                $id = $fileCategory .'/'. strtolower(str_replace('Recipe.php', '', $file->getFilename()));
-                //$id = $this->toSnake(basename($fileName, '.php'));
-                $found[$id] = new $className();
-            }
-           
-        }
-
-        //print_r($found);
-        return $found;
-    }
-
-    private function resolveRecipesNamespace(string $path): string {
-        $ns = str_replace([getcwd().'/src/', '.php', '/'], ['ApiCrumbs', '', '\\'], $path);
-        return str_replace('ApiCrumbsRecipes', 'ApiCrumbs\\Recipes', $ns);
     }
 
 
