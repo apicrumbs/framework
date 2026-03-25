@@ -19,10 +19,8 @@ class MakeCommand
             return;
         }
 
-
         $name = ucwords($name);
         $name = str_replace(" ", "", $name);
-
         
         // 1. Detect Flags
         $isCsv = in_array('--csv', $args);

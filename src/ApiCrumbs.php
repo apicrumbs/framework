@@ -32,6 +32,21 @@ class ApiCrumbs
         return $this->crumbs;
     }
 
+     /**
+     * Inject global variables for all crumbs to share
+     */
+    public function withContext(array $context): self {
+        $this->masterContext = array_merge($this->masterContext, $context);
+        return $this;
+    }
+
+     /**
+     * Inject global variables for all crumbs to share
+     */
+    public function withMapping(array $mapping): self {
+        $this->masterContext['mapping'] = $mapping;
+        return $this;
+    }
 
     /**
      * Prime the engine with a pre-defined Industry Pack

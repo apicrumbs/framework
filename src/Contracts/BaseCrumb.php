@@ -143,7 +143,7 @@ abstract class BaseCrumb implements CrumbInterface
     }
 
     /**
-     * Default Batch Framework: The Safe Loop
+     * Default Batch Engine: The Safe Loop
      */
     public function fetchBatch(array $ids, array $context = []): array 
     {
@@ -170,7 +170,7 @@ abstract class BaseCrumb implements CrumbInterface
     }
 
     /**
-     * AUTO-TRANSFORM: The Standardised Context Framework
+     * AUTO-TRANSFORM: The Standardised Context Engine
      * Automatically generates high-signal Markdown from a key-value map.
      * 
      * @param array $dataPoints Simple associative array [Label => Value]
