@@ -10,8 +10,8 @@ use GuzzleHttp\Client;
  */
 class InstallCommand
 {
-    private string $manifestUrl = 'https://raw.githubusercontent.com/apicrumbs/registry/refs/heads/main/manifest.json';
-    private string $registryBase = "https://raw.githubusercontent.com/apicrumbs/registry/refs/heads/main/";
+    private string $manifestUrl = 'https://raw.githubusercontent.com/apicrumbs/archive/refs/heads/main/manifest.json';
+    private string $archiveBase = "https://raw.githubusercontent.com/apicrumbs/archive/refs/heads/main/";
     private array $manifest = [];
     
     public function handle(array $args): void
@@ -35,7 +35,7 @@ class InstallCommand
         $items = $this->manifest['crumbs'] ?? null; 
 
         if (!$items) {
-            echo "❌ \e[31mError: '{$id}' not found in registry.\e[0m\n";
+            echo "❌ \e[31mError: '{$id}' not found in archive.\e[0m\n";
             return;
         }
 
@@ -50,7 +50,7 @@ class InstallCommand
         $item = $manifestItem;
 
         if (!$item) {
-            echo "❌ \e[31mError: '{$id}' not found in registry.\e[0m\n";
+            echo "❌ \e[31mError: '{$id}' not found in archive.\e[0m\n";
             return;
         }
 
@@ -88,7 +88,7 @@ class InstallCommand
 
         // In a real Sponsoware setup, the Pro files would be fetched via a secure 
         // proxy that validates the APICRUMBS_PRO_TOKEN header.        
-        $sourceUrl = $this->registryBase . $item['install_path'];
+        $sourceUrl = $this->archiveBase . $item['install_path'];
         
         $code = @file_get_contents($sourceUrl);
 
