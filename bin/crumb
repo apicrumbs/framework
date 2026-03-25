@@ -17,6 +17,9 @@ switch ($command) {
     case 'make':
         (new \ApiCrumbs\Framework\Commands\MakeCommand())->handle($args);
         break;
+    case 'suggest':
+        (new \ApiCrumbs\Framework\Commands\SuggestCommand())->handle($args);
+        break;
     case 'install':
         (new \ApiCrumbs\Framework\Commands\InstallCommand())->handle($args);
         break;
@@ -35,20 +38,33 @@ switch ($command) {
     case 'run':
         (new \ApiCrumbs\Framework\Commands\RunCommand())->handle($args);
         break;
+    case 'doctor':
+        (new \ApiCrumbs\Framework\Commands\DoctorCommand())->handle();
+        break;
+    case 'bench':
+        (new \ApiCrumbs\Framework\Commands\BenchCommand())->handle($args);
+        break;
+    case 'auth:check':
+        (new \ApiCrumbs\Framework\Commands\AuthCheckCommand())->handle();
+        break;
     case 'setup:env':
         (new \ApiCrumbs\Framework\Commands\EnvSetupCommand())->handle();
         break;
     default:
         echo "\e[1;34m🍪 ApiCrumbs Foundry CLI\e[0m\n";
         echo "Usage: php foundry [command] [options]\n\n";
-        echo "  \e[32mlist\e[0m             List all available 250+ crumbs\n";
-        echo "  \e[32minstall [Path]\e[0m   Download a free crumb\n";
-        echo "  \e[32mlinter\e[0m           Checks crumbs architectural linting\n";
-        echo "  \e[32mupdate\e[0m           Synchronises local crumbs with the remote crumbs\n";
-        echo "  \e[32mlogs\e[0m             Diagnose the issues instantly\n";
-        echo "  \e[32mrun\e[0m              Runs a single crumb and dumps its transform() output\n";
-        echo "  \e[32mmake [Name]\e[0m      Create a custom crumb stub\n";
-        echo "  \e[32msetup:env\e[0m        Generate a boilerplate .env with placeholders for PRO, CH and HMRC keys\n";
+        echo "  \e[32mlist\e[0m                                 Lists all available 250+ crumbs\n";
+        echo "  \e[32minstall [Path]\e[0m                       Downloads a free crumb\n";
+        echo "  \e[32mlinter\e[0m                               Checks crumbs architectural linting\n";
+        echo "  \e[32mupdate\e[0m                               Synchronises local crumbs with the remote crumbs\n";
+        echo "  \e[32mdoctor\e[0m                               Ensures local crumbs area Stitch-Ready\n";
+        echo "  \e[32mlogs [--clear]\e[0m                       Diagnoses the issues instantly\n";
+        echo "  \e[32mauth:check\e[0m                           Pings the GitHub API and inspects the X-OAuth-Scopes header is PR-Ready.\n";
+        echo "  \e[32mrun [Name] [Id] [--Json]\e[0m             Runs a single crumb and dumps its transform() output\n";
+        echo "  \e[32mbench [Name] [Id]\e[0m                    Benchmark raw data size against refined markdown output\n";
+        echo "  \e[32mmake [Name] [Category]\e[0m               Creates a custom crumb stub\n";
+        echo "  \e[32msuggest [Name] [Category] [Reason]\e[0m   Suggests a new crumb with a name, category and reason\n";
+        echo "  \e[32msetup:env\e[0m                            Generates a boilerplate .env with placeholders for PRO, CH and HMRC keys\n";
     
         break;
 }
