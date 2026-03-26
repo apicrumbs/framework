@@ -73,7 +73,7 @@ class ApiCrumbs
         }
 
         if (!$recipe) {
-            throw new \Exception("Recipe [{$recipeId}] not found in Foundry Registry.");
+            throw new \Exception("Recipe [{$recipeId}] not found in ApiCrumbs Archive.");
         }
 
         $this->currentRecipe = $recipe;

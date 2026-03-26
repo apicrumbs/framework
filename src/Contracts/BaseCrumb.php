@@ -12,6 +12,9 @@ use GuzzleHttp\Exception\GuzzleException;
 abstract class BaseCrumb implements CrumbInterface
 {
     protected Client $client;
+
+    /** @var masterContext[] */
+    protected array $masterContext = [];
     
     // --- Enterprise & Security Settings ---
     public bool $requires2FA = false; 
@@ -22,7 +25,7 @@ abstract class BaseCrumb implements CrumbInterface
     protected int $baseDelayMicros = 500000; // 0.5s starting backoff
     protected int $throttleMicros = 1000;    // Minimum heartbeat between calls
 
-    public function __construct(array $guzzleConfig = [])
+    public function __construct(array $guzzleConfig = [], array $context = [])
     {
         $isWindows = strncasecmp(PHP_OS, 'WIN', 3) === 0;
 
@@ -41,6 +44,8 @@ abstract class BaseCrumb implements CrumbInterface
         $this->client = new Client(array_merge($defaultConfig, $guzzleConfig));
 
         $this->piiLevel = getenv('PII_REDACTION_LEVEL');
+
+        $this->masterContext = $context;        
     }
 
     /**
@@ -102,10 +107,6 @@ abstract class BaseCrumb implements CrumbInterface
     protected function redact(array $data): array
     {
         if ($this->piiLevel <> 'STRICT') return $data;
-        
-        if (isset($data['records'])) {
-            $data[ 'records'] .= ' marco@centricflo.oc.uk | +44 20 7123 4567, (123) 456-7890, 123-456-7890, +1 123 456 7890, +11234567890, +1 (212) 555-0123 QQ 12 34 56 C.';
-        }
 
         $patterns = [
             'emails' => '/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/i',

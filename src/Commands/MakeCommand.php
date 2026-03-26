@@ -131,7 +131,7 @@ class {$class} extends CsvStreamCrumb
         return "https://example.com";
     }
 
-    protected function getMapping(): array
+    public function getMapping(): array
     {
         return [
             'id_column' => 'ID',

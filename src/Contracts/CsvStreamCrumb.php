@@ -12,10 +12,13 @@ use Generator;
 abstract class CsvStreamCrumb extends BaseCrumb
 {
     /** Define header mapping: ['llm_key' => 'CSV Header Name'] */
-    abstract protected function getMapping(): array;
+    abstract public function getMapping(): array;
 
     /** Define the source URL (Local path or Remote URL) */
-    abstract public function getSourceUrl(): string;
+    public function getSourceUrl(): string 
+    {
+        return $this->masterContext['source_url'] ?? "";
+    }
 
     /**
      * Memory-Efficient Generator: Zero-footprint streaming.
