@@ -187,10 +187,22 @@ abstract class BaseCrumb implements CrumbInterface
             // Format the label: "net_income" -> "Net Income"
             $formattedLabel = ucwords(str_replace(['_', '-'], ' ', $label));
             
+            if (str_starts_with($formattedLabel, '#')) {
+                // Handle nested arrays or empty values gracefully
+                $markdown .= "{$formattedLabel}" . PHP_EOL;
+                continue;
+            }
+
+            if ($formattedLabel && !is_numeric($formattedLabel)) {
+                // Handle nested arrays or empty values gracefully
+                $displayValue = is_array($value) ? implode(', ', $value) : ($value ?: 'N/A');
+                $markdown .= "- {$formattedLabel}: {$displayValue}" . PHP_EOL;
+                continue;
+            }
+
             // Handle nested arrays or empty values gracefully
-            $displayValue = is_array($value) ? implode(', ', $value) : ($value ?: 'N/A');
-            
-            $markdown .= "- {$formattedLabel}: {$displayValue}" . PHP_EOL;
+            $markdown .= "- {$value}" . PHP_EOL;
+        
         }
 
         // 2. Wrap in the Global Grounding Standard
@@ -199,6 +211,15 @@ abstract class BaseCrumb implements CrumbInterface
             'source' => $meta['source'] ?? 'Registry Provider',
             'ttl'    => $meta['ttl'] ?? '30d'
         ]);
+    }
+
+    /**
+     * GET CONTEXT: 
+     * Return the current master context memory
+     */
+    public function getContext(): array
+    {
+        return $this->masterContext;
     }
 
 }

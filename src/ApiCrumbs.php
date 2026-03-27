@@ -164,7 +164,6 @@ class ApiCrumbs
         return trim($fullMarkdown);
     }
 
-
     /**
      * Internal logging logic (Sponsoware Grade)
      */
@@ -176,4 +175,14 @@ class ApiCrumbs
         
         file_put_contents($logPath, $logEntry, FILE_APPEND);
     }
+
+    /**
+     * GET CONTEXT: 
+     * Return the current master context memory
+     */
+    public function getContext(): array
+    {
+        return $this->masterContext;
+    }
+
 }
