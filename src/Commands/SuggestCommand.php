@@ -40,7 +40,7 @@ class SuggestCommand
         ]);
 
         try {
-            $response = $client->post('repos/apicrumbs/registry/issues', [
+            $response = $client->post('repos/apicrumbs/archive/issues', [
                 'headers' => [
                     'Authorization' => 'token ' . $token,
                     'Accept'        => 'application/vnd.github.v3+json',

@@ -4,7 +4,7 @@ namespace ApiCrumbs\Framework\Commands;
 
 class UpdateCommand
 {
-    private string $registryUrl = 'https://raw.githubusercontent.com/apicrumbs/registry/refs/heads/main/manifest.json';
+    private string $archiveUrl = 'https://raw.githubusercontent.com/apicrumbs/archive/refs/heads/main/manifest.json';
 
     public function handle(array $args): void
     {
@@ -12,9 +12,9 @@ class UpdateCommand
         echo $isDryRun ? "🔍 [DRY RUN] Comparing Registry...\n" : "📡 Syncing Registry...\n";
 
         // 1. Fetch Remote Manifest
-        $remoteJson = @file_get_contents($this->registryUrl);
+        $remoteJson = @file_get_contents($this->archiveUrl);
         if (!$remoteJson) {
-            echo "\e[31m❌ Error: Cannot reach remote registry manifest.\e[0m\n";
+            echo "\e[31m❌ Error: Cannot reach remote archive manifest.\e[0m\n";
             return;
         }
         $remoteManifest = json_decode($remoteJson, true);

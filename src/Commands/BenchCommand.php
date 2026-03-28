@@ -4,11 +4,11 @@ namespace ApiCrumbs\Framework\Commands;
 
 /**
  * BenchCommand - Performance & Token ROI Auditor
- * Scans local folders to build a live registry, then benchmarks the target.
+ * Scans local folders to build a live archive, then benchmarks the target.
  */
 class BenchCommand
 {
-    private array $registry = [];
+    private array $archive = [];
 
     public function handle(array $args): void
     {
@@ -21,9 +21,9 @@ class BenchCommand
         }
 
         // 1. Build Local Registry on the fly
-        $this->registry = $this->scanLocalCrumbs();
+        $this->archive = $this->scanLocalCrumbs();
 
-        $crumb = $this->registry[$crumbId] ?? null;
+        $crumb = $this->archive[$crumbId] ?? null;
         
         if (!$crumb) {
             echo "❌ \e[31mCrumb '{$crumbId}' not found in src/Crumbs/.\e[0m\n";

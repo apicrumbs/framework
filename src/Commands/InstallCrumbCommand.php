@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
  * InstallCommand - The Unified Registry Installer
  * Handles atomic downloads for Crumbs, Agents, and Drivers.
  */
-class InstallCommand
+class InstallCrumbCommand
 {
     private string $manifestUrl = 'https://raw.githubusercontent.com/apicrumbs/archive/refs/heads/main/manifest.json';
     private string $archiveBase = "https://raw.githubusercontent.com/apicrumbs/archive/refs/heads/main/";
@@ -19,8 +19,8 @@ class InstallCommand
         $id   = $args[2] ?? null;
 
         if (!$id) {
-            echo "❌ \e[31mUsage: php foundry install [id]\e[0m\n";
-            echo "Example: php foundry install postcodeio\n";
+            echo "❌ \e[31mUsage: php crumb install [id]\e[0m\n";
+            echo "Example: php crumb install postcodeio\n";
             return;
         }
 

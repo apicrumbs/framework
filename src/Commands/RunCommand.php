@@ -4,7 +4,7 @@ namespace ApiCrumbs\Framework\Commands;
 
 class RunCommand
 {
-    private string $registryUrl = 'https://raw.githubusercontent.com/apicrumbs/registry/refs/heads/main/manifest.json';
+    private string $archiveUrl = 'https://raw.githubusercontent.com/apicrumbs/archive/refs/heads/main/manifest.json';
 
     public function handle(array $args): void
     {
@@ -55,7 +55,7 @@ class RunCommand
 
     private function resolveCrumbClass(string $name): ?string
     {
-        $manifestPath = $this->registryUrl;
+        $manifestPath = $this->archiveUrl;
         $manifest = json_decode(@file_get_contents($manifestPath), true);
         $id = strtolower($name);
         foreach ($manifest['crumbs'] as $crumb) {

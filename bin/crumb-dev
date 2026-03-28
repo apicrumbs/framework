@@ -20,11 +20,14 @@ switch ($command) {
     case 'suggest':
         (new \ApiCrumbs\Framework\Commands\SuggestCommand())->handle($args);
         break;
-    case 'install':
-        (new \ApiCrumbs\Framework\Commands\InstallCommand())->handle($args);
+    case 'install:crumb':
+        (new \ApiCrumbs\Framework\Commands\InstallCrumbCommand())->handle($args);
+        break;        
+    case 'list:crumbs':
+        (new \ApiCrumbs\Framework\Commands\ListCrumbsCommand())->handle($args);
         break;
-    case 'list':
-        (new \ApiCrumbs\Framework\Commands\ListCommand())->handle($args);
+    case 'list:recipes':
+        (new \ApiCrumbs\Framework\Commands\ListRecipesCommand())->handle($args);
         break;
     case 'linter':
         (new \ApiCrumbs\Framework\Commands\LinterCommand())->handle();
@@ -53,8 +56,9 @@ switch ($command) {
     default:
         echo "\e[1;34m🍪 ApiCrumbs Foundry CLI\e[0m\n";
         echo "Usage: php foundry [command] [options]\n\n";
-        echo "  \e[32mlist\e[0m                                 Lists all available 250+ crumbs\n";
-        echo "  \e[32minstall [Path]\e[0m                       Downloads a free crumb\n";
+        echo "  \e[32mlist:crumbs\e[0m                          Lists all available crumbs\n";
+        echo "  \e[32mlist:recipes\e[0m                         Lists all available recipes\n";
+        echo "  \e[32minstall:crumb [Path]\e[0m                       Downloads a free crumb\n";
         echo "  \e[32mlinter\e[0m                               Checks crumbs architectural linting\n";
         echo "  \e[32mupdate\e[0m                               Synchronises local crumbs with the remote crumbs\n";
         echo "  \e[32mdoctor\e[0m                               Ensures local crumbs area Stitch-Ready\n";
