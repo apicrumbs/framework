@@ -5,10 +5,10 @@ namespace ApiCrumbs\Framework\Commands;
 use GuzzleHttp\Client;
 
 /**
- * InstallCrumbCommand - The Unified Registry Installer
- * Handles atomic downloads for Crumbs.
+ * InstallRecipeCommand - The Unified Registry Installer
+ * Handles atomic downloads for Recipes.
  */
-class InstallCrumbCommand
+class InstallRecipeCommand
 {
     private string $manifestUrl = 'https://raw.githubusercontent.com/apicrumbs/archive/refs/heads/main/manifest.json';
     private string $archiveBase = "https://raw.githubusercontent.com/apicrumbs/archive/refs/heads/main/";
@@ -19,8 +19,8 @@ class InstallCrumbCommand
         $id   = $args[2] ?? null;
 
         if (!$id) {
-            echo "❌ \e[31mUsage: php crumb install:crumb [id]\e[0m\n";
-            echo "Example: php crumb install:crumb geography/postcodeio\n";
+            echo "❌ \e[31mUsage: php crumb install:recipe [id]\e[0m\n";
+            echo "Example: php crumb install:recipe geography/postcodeio\n";
             return;
         }
 
@@ -31,8 +31,8 @@ class InstallCrumbCommand
 
     private function install(string $id, bool $isDependency = false): void
     {
-        // 1. Resolve Category (crumbs, agents, drivers)
-        $items = $this->manifest['crumbs'] ?? null; 
+        // 1. Resolve Category (recipes)
+        $items = $this->manifest['recipes'] ?? null; 
 
         if (!$items) {
             echo "❌ \e[31mError: '{$id}' not found in archive.\e[0m\n";

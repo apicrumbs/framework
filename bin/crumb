@@ -58,7 +58,7 @@ switch ($command) {
         echo "Usage: php foundry [command] [options]\n\n";
         echo "  \e[32mlist:crumbs\e[0m                          Lists all available crumbs\n";
         echo "  \e[32mlist:recipes\e[0m                         Lists all available recipes\n";
-        echo "  \e[32minstall:crumb [Path]\e[0m                       Downloads a free crumb\n";
+        echo "  \e[32minstall:crumb [Path]\e[0m                 Downloads a free crumb\n";
         echo "  \e[32mlinter\e[0m                               Checks crumbs architectural linting\n";
         echo "  \e[32mupdate\e[0m                               Synchronises local crumbs with the remote crumbs\n";
         echo "  \e[32mdoctor\e[0m                               Ensures local crumbs area Stitch-Ready\n";
