@@ -136,11 +136,18 @@ abstract class BaseCrumb implements CrumbInterface
         $scrubbed = ($this->piiLevel !== 'NONE') ? " [PII_CLEAN]" : " [RAW]";
         $id = $meta['id'] ?? 'N/A';
         
-        return "### " . strtoupper($this->getName()) . " (ID: $id)" . PHP_EOL . 
-               trim($refinedData) . PHP_EOL . 
+        $data = trim($refinedData) . PHP_EOL . 
                "---" . PHP_EOL .
-               "[SOURCE: " . ($meta['source'] ?? 'Registry') . " | REF: $id]" . PHP_EOL .
-               "[SECURITY: {$this->piiLevel}$scrubbed | ENGINE=ApiCrumbs_v1]" . PHP_EOL;
+               "- [CRUMB: " . strtolower($this->getName()) ."]" . PHP_EOL .
+               "- [SOURCE: " . (basename($meta['source']) ?? 'Registry') . " ]" . PHP_EOL .
+               "- [REF: $id]" . PHP_EOL .
+               "- [SECURITY: {$this->piiLevel}$scrubbed | ENGINE=ApiCrumbs_v1]" . PHP_EOL;
+
+        if (isset($meta['original_source_url']) && $meta['original_source_url']) {
+            $data .= "- [SOURCE URL: ". $meta['original_source_url'] ." ]" . PHP_EOL;
+        }
+
+        return $data;
     }
 
     /**
@@ -185,13 +192,15 @@ abstract class BaseCrumb implements CrumbInterface
         $markdown = "";
         foreach ($safeData as $label => $value) {
             // Format the label: "net_income" -> "Net Income"
-            $formattedLabel = ucwords(str_replace(['_', '-'], ' ', $label));
+            $formattedLabel = ucwords($label);
             
             if (str_starts_with($formattedLabel, '#')) {
                 // Handle nested arrays or empty values gracefully
                 $markdown .= "{$formattedLabel}" . PHP_EOL;
                 continue;
             }
+
+            $formattedLabel = ucwords(str_replace(['_', '-'], ' ', $label));
 
             if ($formattedLabel && !is_numeric($formattedLabel)) {
                 // Handle nested arrays or empty values gracefully
@@ -209,7 +218,8 @@ abstract class BaseCrumb implements CrumbInterface
         return $this->wrap($markdown, [
             'id'     => $meta['id'] ?? 'N/A',
             'source' => $meta['source'] ?? 'Registry Provider',
-            'ttl'    => $meta['ttl'] ?? '30d'
+            'ttl'    => $meta['ttl'] ?? '30d',
+            'original_source_url' => $meta['original_source_url'] ?? '',
         ]);
     }
 
