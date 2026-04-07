@@ -9,8 +9,8 @@ test.php
 /src/Recipes/
 /src/RecipeBooks/
 /src/PrintingPresses/
-/src/Contracts/BasePrintingPress.php
-/src/Contracts/BaseRecipeBook.php
+#/src/Contracts/BasePrintingPress.php
+#/src/Contracts/BaseRecipeBook.php
 .env
 .env.example
 .env.test
