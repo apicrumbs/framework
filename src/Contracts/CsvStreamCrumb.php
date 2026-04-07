@@ -20,6 +20,12 @@ abstract class CsvStreamCrumb extends BaseCrumb
         return $this->masterContext['source_url'] ?? "";
     }
 
+    /** Define the original source URL (Remote URL) */
+    public function getOriginalSourceUrl(): string 
+    {
+        return $this->masterContext['original_source_url'] ?? "";
+    }
+
     /**
      * Memory-Efficient Generator: Zero-footprint streaming.
      * Inherits safeFetch logic if $url is remote.

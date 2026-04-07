@@ -11,6 +11,8 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 abstract class BaseCrumb implements CrumbInterface
 {
+    protected string $defaultReferenceId = 'CRUMB';
+
     protected Client $client;
 
     /** @var masterContext[] */
@@ -229,6 +231,17 @@ abstract class BaseCrumb implements CrumbInterface
      */
     public function getContext(): array
     {
+        return $this->masterContext;
+    }
+
+    public function getReferenceId(): string
+    {
+        return $this->masterContext['referenceId'] ?? $this->defaultReferenceId;
+    }
+
+    protected function mergeContext($context): array
+    {
+        $this->masterContext = array_merge($this->masterContext, $context);
         return $this->masterContext;
     }
 

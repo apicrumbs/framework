@@ -18,7 +18,7 @@ ApiCrumbs is built for local-first development. It natively solves the "cURL Err
 bash
 
 ```
-composer require apicrumbs/core
+composer require apicrumbs/framework
 
 ```
 
@@ -154,20 +154,26 @@ php crumb submit MyNewCrumb finance
 
 💎 Sponsoware Model
 
-The code is Free. The Roadmap is Sponsored.
+The data and code is Free. The Roadmap is Sponsored.
 
--   Community Sponsor ($5/mo): Maintains the global registry infrastructure.
--   Roadmap Sponsor ($25/mo): Grants 5x Voting Power (🚀) on GitHub Issues to decide which Expert Crumbs are developed next.
--   Enterprise Sponsor ($250+/mo): Unlocks Hardened Drivers (PII redaction, 2FA, OAuth2 Refresh) and private audit logs.
+-   Roadmap Sponsor ($250/mo):
+Frequency: Daily Data Freshness
+Access: Public GitHub Shards
+Requests: Custom Sector Requests
 
-Sponsor the Mission on GitHub →
+🚀 The "Request-a-Shard" Feature
+Top-tier sponsors don't just watch the Foundry; they direct it.
+Request specialized recipes (e.g., "Deep-Dive Social Care Audit" or "SME Supply Chain Health")
+for any UK town or sector. We print the books; you get the edge.
+
+Sponsor the Mission on [GitHub →](https://github.com/apicrumbs)
 
 * * * * *
 
 🏗️ Technical Pillars
 
 -   Token Refinement: Reduces raw JSON noise by ~90% using the `transform()` logic.
--   Silent Grounding: Injects hidden `<!-- Source -->` tags to reduce LLM hallucinations.
+-   Silent Grounding: Injects reference `Source` tags to reduce LLM hallucinations.
 -   Memory Safety: Uses PHP Generators for "Big Data" CSV processing on standard laptops.
 -   Native SSL: Zero-config cURL verification for Windows/XAMPP environments.
 
