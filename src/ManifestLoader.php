@@ -11,7 +11,10 @@ class ManifestLoader
         $crumbsPath = __DIR__ . '/Crumbs';
 
         if (!file_exists($crumbsPath)) {
-            return $found;
+            $crumbsPath = getcwd() . '/src/Crumbs';
+            if (!file_exists($crumbsPath)) {
+                return $found;
+            }
         }
 
         // 🚀 Pattern: Matches any .php file ending in 'Crumb' within any sub-directory
@@ -59,7 +62,10 @@ class ManifestLoader
         $crumbsPath = __DIR__ . '/Recipes';
 
         if (!file_exists($crumbsPath)) {
-            return $found;
+            $crumbsPath = getcwd() . '/src/Recipes';
+            if (!file_exists($crumbsPath)) {
+                return $found;
+            }
         }
 
         // 🚀 Pattern: Matches any .php file ending in 'Recipe' within any sub-directory

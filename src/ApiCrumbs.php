@@ -7,7 +7,7 @@ use ApiCrumbs\Framework\EnvLoader;
 use ApiCrumbs\Framework\ManifestLoader;
 
 // 🔥 The Spark: Boot the Environment before anything else runs
-EnvLoader::load(dirname(__DIR__) . '/.env');
+EnvLoader::load(getcwd() . '/.env');
 
 
 class ApiCrumbs
@@ -56,9 +56,6 @@ class ApiCrumbs
         // 1. Find the recipe in the manifest
         $recipe = null;
         $recipeParts = explode('/', $recipeId);
-        //print_r($recipeParts);
-        //$this->manifest['recipes' ] = $this->scanLocalRecipes();
-        //print_r($this->manifest['recipes']);
         
         if (!$this->manifest['recipes']) {
             throw new \Exception("No Recipes are installed. So [{$recipeId}] not found in Recipes Registry.");
@@ -91,16 +88,7 @@ class ApiCrumbs
      */
     protected function loadCrumbById(string $crumbId): void
     {
-        //$this->manifest['crumbs' ] = $this->scanLocalCrumbs();
-        //print_r($this->manifest['crumbs']);
-        //die();
-
-        foreach ($this->manifest['crumbs'] as $c) {
-            //print_r($c->getName());
-            //print_r($crumbId);
-            //print_r($c);
-            
-            
+        foreach ($this->manifest['crumbs'] as $c) {            
             if ($c->getName() === $crumbId) {
                 $this->crumbs[$crumbId] = $c;
                 break;

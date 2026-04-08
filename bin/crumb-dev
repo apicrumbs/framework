@@ -7,8 +7,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use ApiCrumbs\Framework\EnvLoader;
 
 // 🔥 The Spark: Boot the Environment before anything else runs
-EnvLoader::load(dirname(__DIR__) . '/.env');
-
+EnvLoader::load(getcwd() . '/.env');
 
 $args = $argv;
 $command = $args[1] ?? 'help';

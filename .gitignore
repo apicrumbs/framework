@@ -15,6 +15,7 @@ test.php
 .env.example
 .env.test
 test_sic.php
+crumb-dev
 *.csv
 /dist/
 /data/

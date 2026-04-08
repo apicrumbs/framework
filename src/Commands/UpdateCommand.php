@@ -21,7 +21,7 @@ class UpdateCommand
 
         // 2. Scan Local Crumbs
         $localCrumbs = $this->scanLocalCrumbs();
-        
+
         foreach ($remoteManifest['crumbs'] as $meta) {
 
             $id = $meta['id'];
@@ -69,21 +69,41 @@ class UpdateCommand
     private function scanLocalCrumbs(): array
     {
         $found = [];
-        $dir = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(getcwd() . '/src/Crumbs'));
-        
-        foreach ($dir as $file) {
-            if (!$file->isFile() || !str_ends_with($file->getFilename(), 'Crumb.php')) continue;
-            $fileParts = explode('\\', $file->getPathname());
-            $fileCategory = strtolower($fileParts[count($fileParts) - 2]);
-            // Reflect to get version without executing full API logic
-            $content = file_get_contents($file->getPathname());
-            if (preg_match("/public function getVersion\(\): string\s*{\s*return ['\"](.*?)['\"];\s*}/", $content, $matches)) {
-                $id = $fileCategory .'/'. strtolower(str_replace('Crumb.php', '', $file->getFilename()));
-                echo $id . PHP_EOL;
-                $found[$id] = ['version' => $matches[1]];
-            }
+
+        $files = glob(getcwd() . '/src/Crumbs/**/*');
+
+        foreach ($files as $filePath) {
+            $fileName = basename($filePath);
+
+            // Extract Category (Parent folder name)
+            $pathParts = explode(DIRECTORY_SEPARATOR, dirname($filePath));
+            $fileCategory = strtolower(end($pathParts));
+            $fileCategoryParts = explode('/', $fileCategory);
+            $fileCategory = end($fileCategoryParts);
+
+            $className = self::resolveCrumbsNamespace($filePath);
+            $crumb = new $className();
+
+            $id = $fileCategory .'/'. strtolower(str_replace('Crumb.php', '', $fileName));
+            $found[$id] = ['version' => $crumb->getVersion()];
         }
+
         return $found;
+    }
+
+    private static function resolveCrumbsNamespace(string $path): string 
+    {
+        // 1. Standardise separators for Windows/XAMPP compatibility
+        $path = str_replace('\\', '/', $path);
+        $root = str_replace('\\', '/', getcwd() . '/src/');
+
+        // 2. Strip the root path and the .php extension
+        $relative = str_replace([$root, '.php'], ['', ''], $path);
+
+        // 3. Convert folder separators to Namespace backslashes
+        $ns = 'ApiCrumbs\\' . str_replace('/', '\\', $relative);
+
+        return $ns;
     }
 
     private function resolvePath(string $class): string
