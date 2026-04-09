@@ -48,7 +48,7 @@ class ListRecipesCommand
                  "\e[2m" . $p['difficulty'] . "\e[0m\n\n";
         }
 
-        echo "\n\e[1mUsage:\e[0m  php crunb install:recipe weather/open-meteo\n";
+        echo "\n\e[1mUsage:\e[0m  php vendor/bin/crumb install:recipe weather/open-meteo\n";
         echo "\e[1mPro:\e[0m    https://github.com/apicrumbs\n\n";
     }
 }

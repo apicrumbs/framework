@@ -15,7 +15,7 @@ class MakeCommand
         $isCsv = in_array('--csv', $args);
 
         if (!$name || !$category) {
-            echo "❌ \e[31mUsage: php crumb make [Name] [Category] [--csv]\e[0m\n";
+            echo "❌ \e[31mUsage: php vendor/bin/crumb make [Name] [Category] [--csv]\e[0m\n";
             return;
         }
 

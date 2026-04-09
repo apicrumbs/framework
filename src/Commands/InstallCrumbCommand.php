@@ -20,7 +20,7 @@ class InstallCrumbCommand
 
         if (!$id) {
             echo "❌ \e[31mUsage: php crumb install:crumb [id]\e[0m\n";
-            echo "Example: php crumb install:crumb geography/postcodeio\n";
+            echo "Example: php vendor/bin/crumb install:crumb geography/postcodeio\n";
             return;
         }
 
@@ -69,7 +69,7 @@ class InstallCrumbCommand
         
         if (!$isDependency) {            
             echo "✨ \e[32mInstallation Complete!\e[0m\n";
-            echo "💡 Try it: \e[2mphp crumb run " . $item['id'] . " \"{$item['example_id']}\"\e[0m\n";
+            echo "💡 Try it: \e[2mphp vendor/bin/crumb run " . $item['id'] . " \"{$item['example_id']}\"\e[0m\n";
         }
     }
 

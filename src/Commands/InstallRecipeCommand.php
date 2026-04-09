@@ -69,7 +69,7 @@ class InstallRecipeCommand
         
         if (!$isDependency) {            
             echo "✨ \e[32mInstallation Complete!\e[0m\n";
-            echo "💡 Try it: \e[2mphp crumb run " . $item['id'] . " \"{$item['example_id']}\"\e[0m\n";
+            echo "💡 Try it: \e[2mphp vendor/bin/crumb run " . $item['id'] . " \"{$item['example_id']}\"\e[0m\n";
         }
     }
 

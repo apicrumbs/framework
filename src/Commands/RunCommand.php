@@ -13,7 +13,7 @@ class RunCommand
         $showJson = in_array('--json', $args);
 
         if (!$name) {
-            echo "\e[31m❌ Error: Specify a crumb (e.g. php crumb run PostcodeId)\e[0m\n";
+            echo "\e[31m❌ Error: Specify a crumb (e.g. php vendor/bin/crumb run PostcodeId)\e[0m\n";
             return;
         }
 

@@ -48,7 +48,7 @@ class ListCrumbsCommand
                  "\e[2m" . $p['capabilities'] . "\e[0m\n\n";
         }
 
-        echo "\n\e[1mUsage:\e[0m  php crunb install weather/open-meteo\n";
+        echo "\n\e[1mUsage:\e[0m  php vendor/bin/crumb install:crumb weather/open-meteo\n";
         echo "\e[1mPro:\e[0m    https://github.com/apicrumbs\n\n";
     }
 }

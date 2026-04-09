@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * SuggestCommand - Direct GitHub Issue Injector
- * Usage: php crumb suggest "HMRC VAT" finance "Need to verify UK VAT status"
+ * Usage: php vendor/bin/crumb suggest "HMRC VAT" finance "Need to verify UK VAT status"
  */
 class SuggestCommand
 {
@@ -19,7 +19,7 @@ class SuggestCommand
         $token    = getenv('GITHUB_PAT'); // User's GitHub PAT
 
         if (!$name) {
-            echo "❌ \e[31mUsage: php crumb suggest \"[Name]\" [Category] \"[Reason]\"\e[0m\n";
+            echo "❌ \e[31mUsage: php vendor/bin/crumb suggest \"[Name]\" [Category] \"[Reason]\"\e[0m\n";
             return;
         }
 

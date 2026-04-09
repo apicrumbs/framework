@@ -16,7 +16,7 @@ class BenchCommand
         $targetId = $args[3] ?? 'SW1A1AA';
 
         if (!$crumbId) {
-            echo "❌ \e[31mUsage: php crumb bench [crumb_id] [target_id]\e[0m\n";
+            echo "❌ \e[31mUsage: php vendor/bin/crumb bench [crumb_id] [target_id]\e[0m\n";
             return;
         }
 

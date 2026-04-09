@@ -65,7 +65,7 @@ Check your SSL health, PHP environment, and local Crumb code quality.
 bash
 
 ```
-php crumb doctor
+php vendor/bin/crumb doctor
 
 ```
 
@@ -78,7 +78,7 @@ Download any connector from the 10,000-strong Wikipedia of Context.
 bash
 
 ```
-php crumb install finance/hmrc-spending
+php vendor/bin/crumb install:crumb finance/hmrc-spending
 
 ```
 
@@ -92,10 +92,10 @@ bash
 
 ```
 # Standard API Crumb
-php crumb make VatCheck finance
+php vendor/bin/crumb make VatCheck finance
 
 # Memory-lean CSV Streamer (XAMPP Safe)
-php crumb make GovtSpending finance --csv
+php vendor/bin/crumb make GovtSpending finance --csv
 
 ```
 
@@ -109,10 +109,10 @@ bash
 
 ```
 # See how much money you save on LLM tokens
-php crumb bench finance/hmrc "01234567"
+php vendor/bin/crumb bench finance/hmrc "01234567"
 
 # Trace the "Silent Anchors" (Source/Info tags)
-php crumb trace "geo/postcode,weather/meteo" "SW1A1AA"
+php vendor/bin/crumb trace "geo/postcode,weather/meteo" "SW1A1AA"
 
 ```
 
@@ -131,7 +131,7 @@ Got an idea for a connector? Push it directly to the Global Roadmap from your te
 bash
 
 ```
-php crumb suggest "Companies House Officers" finance "Need to trace director relationships"
+php vendor/bin/crumb suggest "Companies House Officers" finance "Need to trace director relationships"
 
 ```
 
@@ -144,7 +144,7 @@ Finished a local Crumb? Submit it to the public registry and see your GitHub Ava
 bash
 
 ```
-php crumb submit MyNewCrumb finance
+php vendor/bin/crumb submit MyNewCrumb finance
 
 ```
 
