@@ -1,13 +1,13 @@
 <?php
 namespace ApiCrumbs\Framework\Contracts;
 
-use ApiCrumbs\Framework\BasePressManager;
+use ApiCrumbs\Framework\Contracts\PressManagerInterface;
 
 class BasePressFleetManager 
 {
     protected $managers = [];
 
-    public function addManager(BasePressManager $manager) 
+    public function addManager(PressManagerInterface $manager) 
     {
         $this->managers[] = $manager;
     }

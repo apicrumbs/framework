@@ -1,7 +1,7 @@
 <?php
 namespace ApiCrumbs\Framework\Contracts;
 
-class BasePressManager 
+class BasePressManager implements PressManagerInterface
 {
     public $name;
     protected $scripts = [];
@@ -35,14 +35,16 @@ class BasePressManager
         return $this->scripts[0] ?? null; // End of list
     }
 
-    protected function loadBatchProgress(): array {
+    protected function loadBatchProgress(): array 
+    {
         $path = $this->outputDir . DIRECTORY_SEPARATOR . 'batch_progress.json';
         return file_exists($path) 
             ? json_decode(file_get_contents($path), true) 
             : ['last_id' => null, 'stats' => ['printed' => 0]];
     }
 
-    public function saveProgress(string $currentPath): void {
+    public function saveProgress(string $currentPath): void 
+    {
         $progress = $this->loadBatchProgress();
         $progress['last_id'] = $currentPath;
         $progress['stats']['printed']++;
