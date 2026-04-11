@@ -35,7 +35,7 @@ class BasePressManager implements PressManagerInterface
         return $this->scripts[0] ?? null; // End of list
     }
 
-    protected function loadBatchProgress(): array 
+    public function loadBatchProgress(): array 
     {
         $path = $this->outputDir . DIRECTORY_SEPARATOR . 'batch_progress.json';
         return file_exists($path) 
