@@ -73,9 +73,25 @@ class InstallCrumbCommand
         }
     }
 
+    private function getFileContents(string $url): string
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);  
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 3);     
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
+    }
+
     private function fetchManifest(): array
     {
         $manifestJson = @file_get_contents("{$this->manifestUrl}");
+        $manifestJson = $this->getFileContents($this->manifestUrl);
         return json_decode($manifestJson, true);
     }
 
@@ -90,7 +106,7 @@ class InstallCrumbCommand
         // proxy that validates the APICRUMBS_PRO_TOKEN header.        
         $sourceUrl = $this->archiveBase . $item['install_path'];
         
-        $code = @file_get_contents($sourceUrl);
+        $code = $this->getFileContents($sourceUrl);
 
         if (!$code) {
             echo "\e[31m❌ Error: Failed to download source code.\e[0m\n";

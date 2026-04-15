@@ -6,6 +6,21 @@ class ListRecipesCommand
 {
     private string $manifestUrl = "https://raw.githubusercontent.com/apicrumbs/archive/refs/heads/main/manifest.json";
 
+    private function getFileContents(string $url): string
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);  
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 3);     
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
+    }
+
     public function handle(array $args): void
     {
         $category = $args[2] ?? null;
@@ -16,7 +31,7 @@ class ListRecipesCommand
             echo "Category: " . $category . "\n\n";
         }
 
-        $json = @file_get_contents($this->manifestUrl);
+        $json = $this->getFileContents($this->manifestUrl);    
         if (!$json) {
             echo "\e[31m❌ Error: Could not connect to the Registry.\e[0m\n";
             exit(1);
