@@ -9,7 +9,6 @@ use ApiCrumbs\Framework\ManifestLoader;
 // 🔥 The Spark: Boot the Environment before anything else runs
 EnvLoader::load(getcwd() . '/.env');
 
-
 class ApiCrumbs
 {
     /** @var CrumbInterface[] */

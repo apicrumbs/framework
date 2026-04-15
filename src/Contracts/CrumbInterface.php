@@ -2,6 +2,9 @@
 
 namespace ApiCrumbs\Framework\Contracts;
 
+use ApiCrumbs\Framework\EnvLoader;
+EnvLoader::load(getcwd() . '/.env');
+
 interface CrumbInterface
 {
     /** The unique key for the context block (e.g., 'companyprofile') */
