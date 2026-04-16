@@ -2,6 +2,8 @@
 
 namespace ApiCrumbs\Framework\Commands;
 
+use ApiCrumbs\Framework\FileLoader;
+
 class RunCommand
 {
     private string $archiveUrl = 'https://raw.githubusercontent.com/apicrumbs/archive/refs/heads/main/manifest.json';
@@ -56,7 +58,7 @@ class RunCommand
     private function resolveCrumbClass(string $name): ?string
     {
         $manifestPath = $this->archiveUrl;
-        $manifest = json_decode(@file_get_contents($manifestPath), true);
+        $manifest = json_decode(FileLoader::getFileContents($manifestPath), true);
         $id = strtolower($name);
         foreach ($manifest['crumbs'] as $crumb) {
             if ($crumb['id'] == $id) {

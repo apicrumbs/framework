@@ -3,6 +3,7 @@
 namespace ApiCrumbs\Framework\Commands;
 
 use GuzzleHttp\Client;
+use ApiCrumbs\Framework\FileLoader;
 
 /**
  * InstallCrumbCommand - The Unified Registry Installer
@@ -90,8 +91,7 @@ class InstallCrumbCommand
 
     private function fetchManifest(): array
     {
-        $manifestJson = @file_get_contents("{$this->manifestUrl}");
-        $manifestJson = $this->getFileContents($this->manifestUrl);
+        $manifestJson = FileLoader::getFileContents($this->manifestUrl);
         return json_decode($manifestJson, true);
     }
 

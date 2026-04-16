@@ -2,6 +2,8 @@
 
 namespace ApiCrumbs\Framework\Commands;
 
+use ApiCrumbs\Framework\FileLoader;
+
 class ListRecipesCommand
 {
     private string $manifestUrl = "https://raw.githubusercontent.com/apicrumbs/archive/refs/heads/main/manifest.json";
@@ -31,7 +33,7 @@ class ListRecipesCommand
             echo "Category: " . $category . "\n\n";
         }
 
-        $json = $this->getFileContents($this->manifestUrl);    
+        $json = FileLoader::getFileContents($this->manifestUrl);    
         if (!$json) {
             echo "\e[31m❌ Error: Could not connect to the Registry.\e[0m\n";
             exit(1);
