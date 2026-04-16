@@ -2,6 +2,8 @@
 
 namespace ApiCrumbs\Framework\Commands;
 
+use ApiCrumbs\Framework\FileLoader;
+
 class UpdateCommand
 {
     private string $archiveUrl = 'https://raw.githubusercontent.com/apicrumbs/archive/refs/heads/main/manifest.json';
@@ -12,7 +14,7 @@ class UpdateCommand
         echo $isDryRun ? "🔍 [DRY RUN] Comparing Registry...\n" : "📡 Syncing Registry...\n";
 
         // 1. Fetch Remote Manifest
-        $remoteJson = @file_get_contents($this->archiveUrl);
+        $remoteJson = FileLoader::getFileContents($this->archiveUrl);
         if (!$remoteJson) {
             echo "\e[31m❌ Error: Cannot reach remote archive manifest.\e[0m\n";
             return;
@@ -52,9 +54,11 @@ class UpdateCommand
         $backup = $path . '.bak';
         if (file_exists($path)) copy($path, $backup);
 
-        echo "   📥 Downloading {$version}... ";
+        echo "   📥 Downloading {$version}... " . PHP_EOL;
+        
+        $sourceFile = FileLoader::getFileContents($url);
 
-        if (@copy($url, $path)) {
+        if (file_put_contents($path, $sourceFile)) {
             echo "\e[32mDone\e[0m\n";
             if (file_exists($backup)) unlink($backup);
         } else {
