@@ -14,7 +14,7 @@ abstract class BasePrintingPress
     protected array $index = []; // Stores: ['Name' => ['slug' => 'url', 'meta' => '...']]
     protected array $masterContext = [];
     protected array $batchProgress = [];
-
+    protected int $firstLettersCount = 1;
     /**
      * @param CsvStreamCrumb $source The CSV Streamer (The Ink)
      * @param string $recipeId The Recipe ID (The Template)
@@ -141,14 +141,14 @@ abstract class BasePrintingPress
             // Skip empty or already printed IDs in this run
             if (empty($id) || in_array($id, $processedIds)) continue;
         
-            $firstLetter = strtoupper(substr($id, 0, 1));
-            $outputDir = $originalOuputDir . '/' . $firstLetter;
+            $firstLetters = strtoupper(substr($id, 0, $this->firstLettersCount));
+            $outputDir = $originalOuputDir . '/' . $firstLetters;
 
             if (!is_dir($outputDir)) mkdir($outputDir, 0755, true);
 
             // Save to Sharded Directory (The Warehouse)
             $filename = $this->slugify($id) . ".md";
-            $slug = $firstLetter . '/' . $filename;
+            $slug = $firstLetters . '/' . $filename;
             $filePath = $outputDir . DIRECTORY_SEPARATOR . $filename;
 
             // Add to Index (Store high-level stats for the README)
