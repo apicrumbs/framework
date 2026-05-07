@@ -246,7 +246,8 @@ abstract class BasePrintingPress
         $md .= "\n\n---\n";
         $md .= "🚀 **STALE DATA?** Public snapshots are monthly. [Sponsor apicrumbs.com](https://apicrumbs.com) for the **Daily Delta** (Hourly updates).";
         
-        file_put_contents($outputDir . "/README.md", $md);
+        $bom = "\xEF\xBB\xBF";
+        file_put_contents($outputDir . "/README.md", $bom . $md);
         echo "   📄 README.md Updated: {$stats['printed']} changes recorded.\n";
     }
     
